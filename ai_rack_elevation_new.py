@@ -334,7 +334,7 @@ def create_rack_excel(df, input_df, engineer_name, input_file):
             ws.row_dimensions[1].height = 28
 
             # Sub-headers
-            subheaders = ["RU", "PL", "Device", "PR"]
+            subheaders = ["RU", "PL", "Device Name", "PR"]
             for offset, sh in enumerate(subheaders):
                 c = ws.cell(2, col_start + offset)
                 c.value = sh
@@ -378,11 +378,11 @@ def create_rack_excel(df, input_df, engineer_name, input_file):
                     ru_cell.border = border
 
                     # Merge PL, Device, PR cells and set values
-                    for c_offset, key in zip([1,2,3], ["PL", "Device", "PR"]):
+                    for c_offset, key in zip([1,2,3], ["PL", "Device Name", "PR"]):
                         ws.merge_cells(start_row=cur_row, start_column=col_start + c_offset, end_row=end_row, end_column=col_start + c_offset)
                         cell = ws.cell(cur_row, col_start + c_offset)
                         val = slot.get(key, "")
-                        if key == "Device":
+                        if key == "Device Name":
                             ip = slot.get("IP Address", "")
                             sn = slot.get("Serial Number", "")
                             val = f"{clean_text(val)}\n{clean_text(ip)}\nSN: {clean_text(sn)}"
